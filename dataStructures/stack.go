@@ -1,5 +1,7 @@
 package dataStructures
 
+import "errors"
+
 type stack[T any] struct {
 	storage   []T
 	pointer   int
@@ -31,9 +33,10 @@ func (st *stack[T]) Push(value T) {
 
 }
 
-func (st *stack[T]) Pop() (value T) {
+func (st *stack[T]) Pop() (value T, err error) {
 	if st.pointer <= 1 {
-		panic("Stack is empty!")
+		err = errors.New("Stack is empty!")
+		return
 	}
 
 	value = st.storage[st.pointer]
